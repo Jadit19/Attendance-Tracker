@@ -23,8 +23,6 @@ class ImageComparer():
         print("Data Loaded successfully!")
 
     def get_name(self, base_64_img):
-        print(base_64_img[0:20])
-        print("")
         decoded_img = ur.urlopen(base_64_img)
         fr_img = fr.load_image_file(decoded_img)
         face_locations = fr.face_locations(fr_img)
