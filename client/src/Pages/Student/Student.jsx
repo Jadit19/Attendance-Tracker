@@ -1,7 +1,8 @@
 import React, { useRef } from 'react'
 import Webcam from 'react-webcam'
 
-import { FLASK_URL, NODE_URL } from '../../config'
+import { postImg } from '../../Actions/flask'
+import { postStudentLogin } from '../../Actions/node'
 
 const Student = ({ setUser, setUserImage }) => {
     const webcamRef = useRef(null)
@@ -9,33 +10,34 @@ const Student = ({ setUser, setUserImage }) => {
     const handleClick = () => {
         const base64Img =  webcamRef.current.getScreenshot()
         
-        fetch(FLASK_URL + "/post_img", {
-            method: "POST",
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(base64Img)
+        postImg({
+            base64Img: base64Img
         })
-            .then(res => {
-                res.json()
-                    .then(res1 => {
-                        if (res1.name === "__404__")
-                            alert("No Face Detected!")
-                        else if (res1.name === "__denied__")
-                            alert("Unknown User!")
-                        else {
-                            setUser(res1)
-                            setUserImage(base64Img)
-                            fetch(NODE_URL + `/student`, {
-                                method: "POST",
-                                headers:{
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(res1)
-                            })
-                            window.location.href = "/welcome"
-                        }
-                    })
+            .then((res) => {
+                if (res.data.name === "__404__")
+                    alert("No Face Detected!")
+                else if (res.data.name === "__denied__")
+                    alert("Unknown User!")
+                else {
+                    postStudentLogin(res.data)
+                        .then((_res) => {
+                            if (_res.data.status === 200){
+                                setUser(res.data)
+                                setUserImage(base64Img)
+                                window.location.href = "/welcome"
+                            } else {
+                                alert("Please try again..")
+                            }
+                        })
+                        .catch((_err) => {
+                            alert("Something went wrong!")
+                            console.log(_err)
+                        })
+                }
+            })
+            .catch((err) => {
+                alert("Something went wrong!")
+                console.log(err)
             })
     }
 

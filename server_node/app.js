@@ -46,7 +46,10 @@ app.post('/password', async (req, res) => {
 app.post('/student', async (req, res) => {
     studentData.push(req.body)
     writeToFile(studentData)
-    res.json("Uff")
+    res.json({
+        status: 200,
+        messgae: "Student added"
+    })
 })
 
 app.post("/logout", async (req, res) => {

@@ -28,7 +28,6 @@ input{
 table{
     width: calc(100% - 40px);
     max-width: 800px;
-    /* background-color: red; */
     table-layout: fixed;
 }
 

@@ -1,31 +1,23 @@
 import React from 'react'
 
-import { NODE_URL } from '../../config'
+import { logout } from '../../Actions/node'
 
 import './navbar.css'
 
 const Navbar = ({ user }) => {
     const handleLogout = () => {
-        // localStorage.clear()
-        // window.location.href = "/"
-
-        fetch(NODE_URL + "/logout", {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => {
-                res.json()
-                    .then(res1 => {
-                        if (res1.status === 200){
-                            localStorage.clear()
-                            window.location.href = "/"
-                        } else {
-                            alert("User not found!")
-                        }
-                    })
+        logout(user)
+            .then((res) => {
+                if (res.data.status === 200){
+                    localStorage.clear()
+                    window.location.href = "/"
+                } else {
+                    alert("Invalid Session!")
+                }
+            })
+            .catch((err) => {
+                alert('Something went wrong!')
+                console.log(err)
             })
     }
 

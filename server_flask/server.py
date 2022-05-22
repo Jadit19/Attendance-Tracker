@@ -12,7 +12,7 @@ def post_img():
     global image_comparer
     if request.method == 'POST':
         _data = request.get_json()
-        _json = image_comparer.get_json(_data)
+        _json = image_comparer.get_json(_data['base64Img'])
         return jsonify(_json)
 
 if __name__ == '__main__':

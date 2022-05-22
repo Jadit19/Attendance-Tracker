@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import StudentItem from '../../Components/StudentItem/StudentItem'
 
-import { NODE_URL } from '../../config'
+import { getStudentData } from '../../Actions/node'
 
 import './teacher.css'
 
@@ -20,27 +20,18 @@ const Teacher = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch(NODE_URL + "/password", {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                password: password
-            })
+        getStudentData({
+            password: password
         })
-            .then(res => {
-                res.json()
-                    .then(res1 => {
-                        if (res1.status === 200){
-                            console.log(res1.data)
-                            setStudents(res1.data)
-                            console.log(students)
-                            setIsTeacher(true)
-                        }
-                        else
-                            alert("Access Denied!")
-                })
+            .then((res) => {
+                if (res.data.status === 403)
+                    alert("Access Denied!")
+                else {
+                    console.log(res.data.data)
+                    setStudents(res.data.data)
+                    console.log(students)
+                    setIsTeacher(true)
+                }
             })
     }
 
