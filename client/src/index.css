@@ -31,3 +31,22 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+.btn__primary{
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    background-color: var(--color-light);
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+.btn__primary:hover{
+    background-color: var(--color-light-2);
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 5px 0px black;
+}

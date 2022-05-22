@@ -1,0 +1,51 @@
+form{
+    width: calc(100% - 40px);
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    margin-top: 20px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1.2rem;
+}
+
+.btn__container{
+    width: 60%;
+    max-width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+table{
+    width: calc(100% - 40px);
+    max-width: 800px;
+    /* background-color: red; */
+    table-layout: fixed;
+}
+
+td{
+    padding: 5px;
+    border-bottom: 1px solid var(--color-light);
+}
+td.table__name{
+    width: 60%;
+}
+td.table__hour{
+    width: 20%;
+    overflow: hidden;
+    border-left: 1px solid var(--color-light);
+}
+td.table__date{
+    width: 20%;
+    overflow: hidden;
+    border-left: 1px solid var(--color-light);
+}

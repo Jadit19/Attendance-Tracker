@@ -7,7 +7,7 @@ const Welcome = ({ user, userImg }) => {
                 user ?
                 <div>
                     <h1 style={{ paddingBottom: '20px' }}>Welcome, { user.name }!</h1>
-                    <img src={userImg} />
+                    <img src={userImg} alt="Student" />
                     <p style={{ paddingTop: '20px' }}>
                         Logged in at: { user.hour }, { user.date }
                     </p>

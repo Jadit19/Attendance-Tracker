@@ -1,9 +1,7 @@
 import React, { useRef } from 'react'
 import Webcam from 'react-webcam'
 
-import { FLASK_URL } from '../../config'
-
-import './student.css'
+import { FLASK_URL, NODE_URL } from '../../config'
 
 const Student = ({ setUser, setUserImage }) => {
     const webcamRef = useRef(null)
@@ -28,6 +26,13 @@ const Student = ({ setUser, setUserImage }) => {
                         else {
                             setUser(res1)
                             setUserImage(base64Img)
+                            fetch(NODE_URL + `/student`, {
+                                method: "POST",
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(res1)
+                            })
                             window.location.href = "/welcome"
                         }
                     })
