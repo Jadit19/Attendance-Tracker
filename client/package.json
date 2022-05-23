@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-all": "concurrently \"cd ../server_node && npm start\" \"cd ../server_flask && python server.py\" \"npm start\""
+    "start-all": "concurrently \"cd ../server_node && npm start\" \"cd ../server_flask && python3 server.py\" \"npm start\""
   },
   "eslintConfig": {
     "extends": [

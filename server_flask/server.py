@@ -1,12 +1,16 @@
+# * ---------- IMPORTS --------- *
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from image_comparer import ImageComparer
 
 image_comparer = ImageComparer()
 
+# * ---------- Create App --------- *
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 
+# * -----------  ROUTES ----------- *
+# * ---- Get base64 encoded image from client ---- *
 @app.route('/post_img', methods=['POST'])
 def post_img():
     global image_comparer
@@ -15,5 +19,6 @@ def post_img():
         _json = image_comparer.get_json(_data['base64Img'])
         return jsonify(_json)
 
+# * ------- RUN SERVER on port 5000 ------- *
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
