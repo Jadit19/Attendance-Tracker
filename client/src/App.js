@@ -21,7 +21,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/welcome" element={<Welcome user={user} userImg={userImg} />} />
-						<Route path="/student" element={<Student setUser={setUser} setUserImage={setUserImg} />} />
+						<Route path="/student" element={<Student user={user} setUser={setUser} setUserImage={setUserImg} />} />
 						<Route path="/teacher" element={<Teacher />} />
 					</Routes>
 				</BrowserRouter>

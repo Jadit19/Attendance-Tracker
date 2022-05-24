@@ -2,13 +2,30 @@ import React, { useRef } from 'react'
 import Webcam from 'react-webcam'
 
 import { postImg } from '../../Actions/flask'
-import { postStudentLogin } from '../../Actions/node'
+import { postStudentLogin, logout } from '../../Actions/node'
 
-const Student = ({ setUser, setUserImage }) => {
+const Student = ({ user, setUser, setUserImage }) => {
     const webcamRef = useRef(null)
 
     const handleClick = () => {
         const base64Img =  webcamRef.current.getScreenshot()
+
+        if (user){
+            logout(user)
+                .then((res) => {
+                    if (res.data.status === 200){
+                        localStorage.clear()
+                    } else {
+                        alert("Invalid Session!")
+                        return
+                    }
+                })
+                .catch((err) => {
+                    alert("Something went wrong!")
+                    console.log(err)
+                    return
+                })
+        }
         
         postImg({
             base64Img: base64Img
