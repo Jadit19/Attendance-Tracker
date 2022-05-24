@@ -11,29 +11,29 @@ class ImageComparer():
     
     # Declare all the lists
     def __init__(self):
-        self.files = []
-        self.known_names = []
-        self.face_encodings = []
-        self.load_data()
+        self.__files = []
+        self.__known_names = []
+        self.__face_encodings = []
+        self.__load_data()
     
     # Loading the Data
-    def load_data(self):
+    def __load_data(self):
         print("\n[flask] Loading data...")
-        # Walk in the folder to add every file name to self.files
+        # Walk in the folder to add every file name to self.__files
         for (root, dirs, files) in os.walk('./images'):
-            self.files.extend(files)
+            self.__files.extend(files)
         # Walk in the folder
-        for file in self.files:
+        for file in self.__files:
             # Load each file
             face = fr.load_image_file("./images/" + file)
-            # Extract the name of each student from the filename and add it to self.known_names  
-            self.known_names.append(re.sub("[0-9]",'', file[:-4]))
+            # Extract the name of each student from the filename and add it to self.__known_names  
+            self.__known_names.append(re.sub("[0-9]",'', file[:-4]))
             # Encode the face of each student
-            self.face_encodings.append(fr.face_encodings(face)[0])
+            self.__face_encodings.append(fr.face_encodings(face)[0])
         print("[flask] Data Loaded successfully!\n")
 
 # * ---- Get the name of the student from the base64 encoded image received from the client ---- *
-    def get_name(self, base_64_img):
+    def __get_name(self, base_64_img):
         # Decoding the base64 string into an image
         decoded_img = ur.urlopen(base_64_img)
         # Loading the image
@@ -46,15 +46,15 @@ class ImageComparer():
         if (face_encodings):
             for fe in face_encodings:
                 # See if the unknown face is a match for a known face
-                matches = fr.compare_faces(self.face_encodings, fe, tolerance=0.5)
+                matches = fr.compare_faces(self.__face_encodings, fe, tolerance=0.5)
                 # Check the known face with the smallest distance to the unknown face
-                face_distances = fr.face_distance(self.face_encodings, fe)
+                face_distances = fr.face_distance(self.__face_encodings, fe)
                 # Take the best one (the one with minimum distance)
                 best_match_index = np.argmin(face_distances)
                 # If there is a match:
                 if matches[best_match_index]:
                 # Give the detected face the name of the student that match
-                    return self.known_names[best_match_index]
+                    return self.__known_names[best_match_index]
                 else:
                 # Else if no match is found, return "__denied__"
                     return "__denied__"
@@ -67,9 +67,17 @@ class ImageComparer():
         # Initialise JSON to EXPORT
         json_to_export = {}
         # Save the name
-        json_to_export['name'] = self.get_name(base_64_img)
+        json_to_export['name'] = self.__get_name(base_64_img)
         # Save the time
-        json_to_export['hour'] = f'{time.localtime().tm_hour}:{time.localtime().tm_min}'
+        # json_to_export['hour'] = f'{time.localtime().tm_hour < 10 ? 1 : 2}:{time.localtime().tm_min}'
+        hour = ""
+        if (time.localtime().tm_hour < 10):
+            hour += "0"
+        hour += f'{time.localtime().tm_hour}:'
+        if (time.localtime().tm_min < 10):
+            hour += "0"
+        hour += f'{time.localtime().tm_min}'
+        json_to_export['hour'] = hour
         # Save the date
         json_to_export['date'] = f'{time.localtime().tm_mday}/{time.localtime().tm_mon}/{time.localtime().tm_year}'
         return json_to_export
