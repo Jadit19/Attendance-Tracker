@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import StudentItem from '../../Components/StudentItem/StudentItem'
 
-import { getStudentData } from '../../Actions/node'
+import { getStudentData, logout } from '../../Actions/node'
 
 import './teacher.css'
 
-const Teacher = () => {
+const Teacher = ({ user, setUser }) => {
     const [isTeacher, setIsTeacher] = useState(false)
     const [password, setPassword] = useState('')
-    const [students, setStudents] = useState([])
 
     const handleChange = (e) => {
         setPassword(e.target.value)
@@ -20,6 +19,23 @@ const Teacher = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        if (user){
+            logout(user)
+                .then((res) => {
+                    if (res.data.status === 200){
+                        setUser(null)
+                    } else {
+                        alert("Invalid Session!")
+                        window.location.href = "/"
+                        return
+                    }
+                })
+                .catch((err) => {
+                    alert("Something went wrong!")
+                    console.log(err)
+                    return
+                })
+        }
         getStudentData({
             password: password
         })
@@ -28,8 +44,6 @@ const Teacher = () => {
                     alert("Access Denied!")
                 else {
                     console.log(res.data.data)
-                    setStudents(res.data.data)
-                    console.log(students)
                     setIsTeacher(true)
                 }
             })
@@ -48,13 +62,6 @@ const Teacher = () => {
                                 <td className='table__date' style={{ fontSize: '1.5rem' }}>DATE</td>
                             </tr>
                         </thead>
-                        {
-                            students.forEach((sData, idx) => {
-                                return (
-                                    <StudentItem key={idx} studentData={sData} />
-                                )
-                            })
-                        }
                     </table>
                 </div> :
                 <form onSubmit={handleSubmit} onReset={handleReset}>

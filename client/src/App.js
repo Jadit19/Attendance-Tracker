@@ -22,7 +22,7 @@ function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/welcome" element={<Welcome user={user} userImg={userImg} />} />
 						<Route path="/student" element={<Student user={user} setUser={setUser} setUserImage={setUserImg} />} />
-						<Route path="/teacher" element={<Teacher />} />
+						<Route path="/teacher" element={<Teacher user={user} setUser={setUser} />} />
 					</Routes>
 				</BrowserRouter>
 			</div>
