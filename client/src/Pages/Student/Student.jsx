@@ -38,11 +38,19 @@ const Student = ({ user, setUser, setUserImage }) => {
                 else if (res.data.name === "__denied__")
                     alert("Unknown User!")
                 else {
-                    postStudentLogin(res.data)
+                    postStudentLogin({
+                        name: res.data.name,
+                        hour: res.data.hour,
+                        date: res.data.date
+                    })
                         .then((_res) => {
                             if (_res.data.status === 200){
-                                setUser(res.data)
-                                setUserImage(base64Img)
+                                setUser({
+                                    name: res.data.name,
+                                    hour: res.data.hour,
+                                    date: res.data.date
+                                })
+                                setUserImage(res.data.image)
                                 window.location.href = "/welcome"
                             } else {
                                 alert("Please try again..")
