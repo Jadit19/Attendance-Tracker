@@ -7,26 +7,26 @@ import { postStudentLogin, logout } from '../../Actions/node'
 const Student = ({ user, setUser, setUserImage }) => {
     const webcamRef = useRef(null)
 
+    const handleLogout = () => {
+        logout(user)
+            .then((res) => {
+                if (res.data.status === 200){
+                    setUser(null)
+                } else {
+                    alert("Invalid Session!")
+                    return
+                }
+            })
+            .catch((err) => {
+                alert("Something went wrong!")
+                console.log(err)
+                return
+            })
+    }
+
     const handleClick = () => {
         const base64Img =  webcamRef.current.getScreenshot()
 
-        if (user){
-            logout(user)
-                .then((res) => {
-                    if (res.data.status === 200){
-                        localStorage.clear()
-                    } else {
-                        alert("Invalid Session!")
-                        return
-                    }
-                })
-                .catch((err) => {
-                    alert("Something went wrong!")
-                    console.log(err)
-                    return
-                })
-        }
-        
         postImg({
             base64Img: base64Img
         })
@@ -60,13 +60,22 @@ const Student = ({ user, setUser, setUserImage }) => {
 
     return (
         <div className="main__container">
-            <Webcam width={
-                window.outerWidth < 600 ?
-                window.innerWidth - 40 :
-                window.innerWidth / 2
-            } style={{transform: 'scaleX(-1)'}}
-            ref={webcamRef} />
-            <button className='btn__primary' onClick={handleClick}>Capture</button>
+            {
+                user ?
+                <>
+                    <h1>{ user.name } is already logged in. Please logout first to proceed.</h1>
+                    <button className='btn__primary' onClick={handleLogout}>Logout</button>
+                </> :
+                <>
+                    <Webcam width={
+                        window.outerWidth < 600 ?
+                        window.innerWidth - 40 :
+                        window.innerWidth / 2
+                    } style={{transform: 'scaleX(-1)'}}
+                    ref={webcamRef} />
+                    <button className='btn__primary' onClick={handleClick}>Capture</button>
+                </>
+            }
         </div>
     )
 }
