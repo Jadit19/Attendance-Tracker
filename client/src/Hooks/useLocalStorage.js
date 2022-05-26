@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const PREFIX = 'Attendance-Tracker-'
-
+// creating a hook for communicating with the local storage of the system
 export default function useLocalStorage (key, initialValue){
     const prefixedKey = PREFIX + key
     const [value, setValue] = useState(() => {

@@ -13,6 +13,7 @@ function App() {
 	const [user, setUser] = useLocalStorage('user', null)
 	const [userImg, setUserImg] = useLocalStorage('img', null)
 
+	// creating routes in the webpage
 	return (
 		<div>
 			<Navbar user={user} />
