@@ -71,7 +71,6 @@ class ImageComparer():
         # Save the name
         json_to_export['name'] = self.__get_name(base_64_img)
         # Save the time
-        # json_to_export['hour'] = f'{time.localtime().tm_hour < 10 ? 1 : 2}:{time.localtime().tm_min}'
         hour = ""
         if (time.localtime().tm_hour < 10):
             hour += "0"

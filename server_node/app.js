@@ -72,5 +72,5 @@ app.post("/logout", async (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`[node] Listening on port #${PORT}..\n`)
+    console.log(`[node] Listening on port #${PORT}...\n`)
 })

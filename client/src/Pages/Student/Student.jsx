@@ -32,9 +32,9 @@ const Student = ({ user, setUser, setUserImage }) => {
         })
             .then((res) => {
                 if (res.data.name === "__404__")
-                    alert("No Face detected! Please try again..")
+                    alert("No Face detected! Please try again...")
                 else if (res.data.name === "__multiple__")
-                    alert("Multiple Faces detected! Please try again..")
+                    alert("Multiple Faces detected! Please try again...")
                 else if (res.data.name === "__denied__")
                     alert("Unknown User!")
                 else {
@@ -53,7 +53,7 @@ const Student = ({ user, setUser, setUserImage }) => {
                                 setUserImage(res.data.image)
                                 window.location.href = "/welcome"
                             } else {
-                                alert("Please try again..")
+                                alert("Please try again...")
                             }
                         })
                         .catch((_err) => {
