@@ -40,6 +40,8 @@ class ImageComparer():
         fr_img = fr.load_image_file(decoded_img)
         # Detecting faces in the image
         face_locations = fr.face_locations(fr_img)
+        if (len(face_locations) > 1):
+            return "__multiple__"
         # Encode faces in the image 
         face_encodings = fr.face_encodings(fr_img, face_locations)
         # If a face is found in the face_encodings:

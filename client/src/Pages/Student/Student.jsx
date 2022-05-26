@@ -32,7 +32,9 @@ const Student = ({ user, setUser, setUserImage }) => {
         })
             .then((res) => {
                 if (res.data.name === "__404__")
-                    alert("No Face Detected!")
+                    alert("No Face detected! Please try again..")
+                else if (res.data.name === "__multiple__")
+                    alert("Multiple Faces detected! Please try again..")
                 else if (res.data.name === "__denied__")
                     alert("Unknown User!")
                 else {
