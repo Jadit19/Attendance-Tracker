@@ -42,9 +42,10 @@ const Teacher = ({ user, setUser }) => {
             password: password
         })
             .then((res) => {
-                if (res.data.status === 403)
+                if (res.data.status === 403){
                     alert("Access Denied!")
-                else {
+                    setPassword('')
+                } else {
                     setStudentData(res.data.data)
                     setIsTeacher(true)
                 }
@@ -60,24 +61,27 @@ const Teacher = ({ user, setUser }) => {
                     <button className='btn__primary' onClick={handleLogout}>Logout</button>
                 </> : (
                     isTeacher ?
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td className='table__name' style={{ fontSize: '1.5rem' }}>NAME</td>
-                                    <td className='table__hour' style={{ fontSize: '1.5rem' }}>TIME</td>
-                                    <td className='table__date' style={{ fontSize: '1.5rem' }}>DATE</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    studentData.map((sData, idx) => (
-                                        <StudentItem key={idx} studentData={sData}></StudentItem>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
-                    </div> :
+                    <>
+                        <h1 style={{width: 'calc(100% - 40px)', padding: '20px' }}><center>Students currently logged in:</center></h1>
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td className='table__name' style={{ fontSize: '1.5rem' }}>NAME</td>
+                                        <td className='table__hour' style={{ fontSize: '1.5rem' }}>TIME</td>
+                                        <td className='table__date' style={{ fontSize: '1.5rem' }}>DATE</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        studentData.map((sData, idx) => (
+                                            <StudentItem key={idx} studentData={sData}></StudentItem>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </> :
                     <form onSubmit={handleSubmit} onReset={handleReset}>
                         <h1>Welcome Teacher! Enter the password</h1>
                         <input type='password' value={password} onChange={handleChange} />
