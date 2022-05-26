@@ -8,6 +8,7 @@ class FaceDetector():
         self.__casc_path = os.path.dirname(cv2.__file__) + "/data/haarcascade_frontalface_default.xml"
         self.__face_cascade = cv2.CascadeClassifier(self.__casc_path)
 
+# * ------ Detecting the face in the image ------ *
     def get_marked_img(self, base_64_img):
         encoded_data = base_64_img.split(',')[1]
         nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
@@ -20,6 +21,7 @@ class FaceDetector():
             minSize = (30, 30),
             flags = cv2.CASCADE_SCALE_IMAGE
         )
+        # Displaying a Rectangular Box around the face detected in the image
         x, y, w, h = faces[0]
         cv2.rectangle(cv_img, (x, y), (x+w, y+h), (0, 255 , 0), 4)
         retval, buffer_img = cv2.imencode('.webp', cv_img)
