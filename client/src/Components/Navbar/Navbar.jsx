@@ -5,6 +5,8 @@ import { logout } from '../../Actions/node'
 import './navbar.css'
 
 const Navbar = ({ user }) => {
+    
+    // function for logging out a student
     const handleLogout = () => {
         logout(user)
             .then((res) => {
@@ -28,7 +30,7 @@ const Navbar = ({ user }) => {
             </a>
             <div className="nav__right">
                 {
-                    user ?
+                    user ? //if a student is already logged in
                     <>
                         <a className="nav__option" href="/welcome">{ user.name }</a>
                         <div className="nav__option" onClick={handleLogout}>Logout</div>

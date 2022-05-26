@@ -1,12 +1,13 @@
+//! IMPORTS -------------------------
 import React, { useRef } from 'react'
-import Webcam from 'react-webcam'
-
+import Webcam from 'react-webcam' // react-webcam library is used for capturing the photo
 import { postImg } from '../../Actions/flask'
 import { postStudentLogin, logout } from '../../Actions/node'
 
 const Student = ({ user, setUser, setUserImage }) => {
     const webcamRef = useRef(null)
 
+    // function for logging out a student
     const handleLogout = () => {
         logout(user)
             .then((res) => {
@@ -24,9 +25,10 @@ const Student = ({ user, setUser, setUserImage }) => {
             })
     }
 
+    // function for taking a snapshot
     const handleClick = () => {
         const base64Img =  webcamRef.current.getScreenshot()
-
+        // sending post request to flask server
         postImg({
             base64Img: base64Img
         })
@@ -38,6 +40,7 @@ const Student = ({ user, setUser, setUserImage }) => {
                 else if (res.data.name === "__denied__")
                     alert("Unknown User!")
                 else {
+                    // sending post request to nodejs server
                     postStudentLogin({
                         name: res.data.name,
                         hour: res.data.hour,
@@ -45,7 +48,7 @@ const Student = ({ user, setUser, setUserImage }) => {
                     })
                         .then((_res) => {
                             if (_res.data.status === 200){
-                                setUser({
+                                setUser({ // updating user details 
                                     name: res.data.name,
                                     hour: res.data.hour,
                                     date: res.data.date
@@ -71,7 +74,7 @@ const Student = ({ user, setUser, setUserImage }) => {
     return (
         <div className="main__container">
             {
-                user ?
+                user ? // if a student is already logged in
                 <>
                     <h1>{ user.name } is already logged in. Please logout first to proceed.</h1>
                     <button className='btn__primary' onClick={handleLogout}>Logout</button>

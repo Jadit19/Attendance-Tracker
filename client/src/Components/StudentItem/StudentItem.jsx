@@ -4,7 +4,8 @@ import './studentItem.css'
 
 const StudentItem = ({ studentData }) => {
     return (
-        <tr>
+        // creating a row in the table corresponding to each logged in student
+        <tr> 
             <td className="table__name">{ studentData.name }</td>
             <td className="table__hour">{ studentData.hour }</td>
             <td className="table__date">{ studentData.date }</td>

@@ -1,23 +1,27 @@
+// ! IMPORTS----------------------
 import React, { useState } from 'react'
 import StudentItem from '../../Components/StudentItem/StudentItem'
-
 import { getStudentData, logout } from '../../Actions/node'
-
 import './teacher.css'
 
 const Teacher = ({ user, setUser }) => {
+    
+    // declaring state variables
     const [isTeacher, setIsTeacher] = useState(false)
     const [studentData, setStudentData] = useState([])
     const [password, setPassword] = useState('')
 
+    // function to update password while the text is entered
     const handleChange = (e) => {
         setPassword(e.target.value)
     }
-
+    
+    // function to reset the password
     const handleReset = () => {
         setPassword('')
     }
 
+    // function for logging out a student
     const handleLogout = () => {
         logout(user)
             .then((res) => {
@@ -35,18 +39,19 @@ const Teacher = ({ user, setUser }) => {
             })
     }
 
+    // function for getting student data once password is submitted
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault() // preventing page from refreshing on submitting password
 
         getStudentData({
             password: password
         })
             .then((res) => {
                 if (res.data.status === 403){
-                    alert("Access Denied!")
+                    alert("Password is Incorrect! Please Try Again...") // error message shown on incorrect password
                     setPassword('')
-                } else {
-                    setStudentData(res.data.data)
+                } else { // if password entered is correct
+                    setStudentData(res.data.data) 
                     setIsTeacher(true)
                 }
             })
@@ -55,14 +60,15 @@ const Teacher = ({ user, setUser }) => {
     return (
         <div className='main__container'>
             {
-                user ? 
+                user ? // if a student is already logged in when the '/teacher' page is opened
                 <>
                     <h1>{ user.name } is already logged in. Please logout first to proceed.</h1>
                     <button className='btn__primary' onClick={handleLogout}>Logout</button>
                 </> : (
-                    isTeacher ?
-                    <>
+                    isTeacher ? // displaying the currently logged in students
+                    <> 
                         <h1 style={{width: 'calc(100% - 40px)', padding: '20px' }}><center>Students currently logged in:</center></h1>
+                        <br/><br/>
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                             <table>
                                 <thead>
@@ -75,7 +81,7 @@ const Teacher = ({ user, setUser }) => {
                                 <tbody>
                                     {
                                         studentData.map((sData, idx) => (
-                                            <StudentItem key={idx} studentData={sData}></StudentItem>
+                                            <StudentItem key={idx} studentData={sData}></StudentItem> // showing student data in the body of the table
                                         ))
                                     }
                                 </tbody>

@@ -1,5 +1,5 @@
 import React from 'react'
-
+// Homepage of website
 const Home = () => {
     return (
         <div className='main__container'>
