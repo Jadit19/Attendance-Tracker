@@ -7,6 +7,7 @@ import './teacher.css'
 
 const Teacher = ({ user, setUser }) => {
     const [isTeacher, setIsTeacher] = useState(false)
+    const [studentData, setStudentData] = useState([])
     const [password, setPassword] = useState('')
 
     const handleChange = (e) => {
@@ -43,7 +44,7 @@ const Teacher = ({ user, setUser }) => {
                 if (res.data.status === 403)
                     alert("Access Denied!")
                 else {
-                    console.log(res.data.data)
+                    setStudentData(res.data.data)
                     setIsTeacher(true)
                 }
             })
@@ -62,6 +63,13 @@ const Teacher = ({ user, setUser }) => {
                                 <td className='table__date' style={{ fontSize: '1.5rem' }}>DATE</td>
                             </tr>
                         </thead>
+                        <tbody>
+                            {
+                                studentData.map((sData, idx) => (
+                                    <StudentItem key={idx} studentData={sData}></StudentItem>
+                                ))
+                            }
+                        </tbody>
                     </table>
                 </div> :
                 <form onSubmit={handleSubmit} onReset={handleReset}>

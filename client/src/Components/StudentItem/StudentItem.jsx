@@ -3,7 +3,6 @@ import React from 'react'
 import './studentItem.css'
 
 const StudentItem = ({ studentData }) => {
-    console.log(studentData)
     return (
         <tr>
             <td className="table__name">{ studentData.name }</td>
