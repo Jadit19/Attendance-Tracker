@@ -20,7 +20,7 @@ def post_img():
         _data = request.get_json()
         _json = image_comparer.get_json(_data['base64Img'])
         _name = _json['name']
-        if (_name != '__404__') or (_name != '__denied__') or (_name != '__multiple__'):
+        if (_name != '__404__') and (_name != '__denied__') and (_name != '__multiple__'):
             _json['image'] = face_detector.get_marked_img(_data['base64Img'])
         return jsonify(_json)
 
