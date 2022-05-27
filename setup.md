@@ -56,3 +56,7 @@ cd server_flask && python3 server.py
 ```bash
 cd client && npm start
 ```
+
+<br/>
+
+>**Note:** Tried and Tested on **Ubuntu 20.04**

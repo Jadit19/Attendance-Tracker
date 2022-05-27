@@ -21,3 +21,7 @@ If the password entered is incorrect, an alert is shown.
 * **Front-end:** *ReactJS*
 * **Back-end:** *Flask* & *NodeJS*
 * **Face-Recognition Model:** *Python [Face_recognition](https://github.com/ageitgey/face_recognition) Library*  
+
+## How to Run?
+
+For instructions on how to run the application on your local machine after cloning the repository, go to [setup.md](setup.md)
