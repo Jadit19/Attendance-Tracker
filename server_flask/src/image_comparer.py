@@ -30,10 +30,8 @@ class ImageComparer():
             str1 = file.split("_")
             # Extract the roll number of each student from the filename and add it to self.__roll_numbers
             self.__roll_numbers.append(str1[0])
-            print(self.__roll_numbers)
             # Extract the name of each student from the filename and add it to self.__known_names  
             self.__known_names.append((str1[1].split("."))[0])
-            print(self.__known_names)
             # Encode the face of each student
             self.__face_encodings.append(fr.face_encodings(face)[0])
         print("[flask] Data Loaded successfully!\n")
@@ -76,7 +74,12 @@ class ImageComparer():
         # Initialise JSON to EXPORT
         json_to_export = {}
         # Save the name
-        json_to_export['name'] = self.__get_name(base_64_img)
+        _name = self.__get_name(base_64_img)
+        json_to_export['name'] = _name
+        # Save the roll number
+        json_to_export['roll'] = 0
+        if _name in self.__known_names:
+            json_to_export['roll'] = self.__roll_numbers[self.__known_names.index(_name)]
         # Save the time
         hour = ""
         if (time.localtime().tm_hour < 10):

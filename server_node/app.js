@@ -57,7 +57,7 @@ app.post("/logout", async (req, res) => {
     for (let i=0; i<studentData.length; i++){
         if (studentData[i].hour === req.body.hour)
             if (studentData[i].date === req.body.date)
-                if (studentData[i].name === req.body.name){
+                if (studentData[i].roll === req.body.roll){
                     idx = i;
                     break
                 }

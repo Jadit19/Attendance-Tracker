@@ -43,6 +43,7 @@ const Student = ({ user, setUser, setUserImage }) => {
                     // sending post request to nodejs server
                     postStudentLogin({
                         name: res.data.name,
+                        roll: res.data.roll,
                         hour: res.data.hour,
                         date: res.data.date
                     })
@@ -50,10 +51,12 @@ const Student = ({ user, setUser, setUserImage }) => {
                             if (_res.data.status === 200){
                                 setUser({ // updating user details 
                                     name: res.data.name,
+                                    roll: res.data.roll,
                                     hour: res.data.hour,
                                     date: res.data.date
                                 })
                                 setUserImage(res.data.image)
+                                console.log(res.data)
                                 window.location.href = "/welcome"
                             } else {
                                 alert("Please try again...")

@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import StudentItem from '../../Components/StudentItem/StudentItem'
 import { getStudentData, logout } from '../../Actions/node'
+import useSortableData from '../../Hooks/useSortableData'
 import './teacher.css'
 
 const Teacher = ({ user, setUser }) => {
@@ -10,6 +11,8 @@ const Teacher = ({ user, setUser }) => {
     const [isTeacher, setIsTeacher] = useState(false)
     const [studentData, setStudentData] = useState([])
     const [password, setPassword] = useState('')
+    
+    const { items, requestSort } = useSortableData(studentData)
 
     // function to update password while the text is entered
     const handleChange = (e) => {
@@ -73,15 +76,15 @@ const Teacher = ({ user, setUser }) => {
                             <table>
                                 <thead>
                                     <tr>
-                                        <td className='table__roll_number' style={{ fontSize: '1.5rem' }}>ROLL NO.</td>
-                                        <td className='table__name' style={{ fontSize: '1.5rem' }}>NAME</td>
-                                        <td className='table__hour' style={{ fontSize: '1.5rem' }}>TIME</td>
-                                        <td className='table__date' style={{ fontSize: '1.5rem' }}>DATE</td>
+                                        <td className='table__roll' style={{ fontSize: '1.2rem' }} onClick={() => requestSort('roll')}>R. NO.</td>
+                                        <td className='table__name' style={{ fontSize: '1.2rem' }} onClick={() => requestSort('name')}>NAME</td>
+                                        <td className='table__hour' style={{ fontSize: '1.2rem' }} onClick={() => requestSort('hour')}>TIME</td>
+                                        <td className='table__date' style={{ fontSize: '1.2rem' }} onClick={() => requestSort('date')}>DATE</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        studentData.map((sData, idx) => (
+                                        items.map((sData, idx) => (
                                             <StudentItem key={idx} studentData={sData}></StudentItem> // showing student data in the body of the table
                                         ))
                                     }
