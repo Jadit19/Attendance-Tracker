@@ -12,6 +12,7 @@ class ImageComparer():
     # Declare all the lists
     def __init__(self):
         self.__files = []
+        self.__roll_numbers=[]
         self.__known_names = []
         self.__face_encodings = []
         self.__load_data()
@@ -26,8 +27,13 @@ class ImageComparer():
         for file in self.__files:
             # Load each file
             face = fr.load_image_file("./images/" + file)
+            str1 = file.split("_")
+            # Extract the roll number of each student from the filename and add it to self.__roll_numbers
+            self.__roll_numbers.append(str1[0])
+            print(self.__roll_numbers)
             # Extract the name of each student from the filename and add it to self.__known_names  
-            self.__known_names.append(re.sub("[0-9]",'', file[:-4]))
+            self.__known_names.append((str1[1].split("."))[0])
+            print(self.__known_names)
             # Encode the face of each student
             self.__face_encodings.append(fr.face_encodings(face)[0])
         print("[flask] Data Loaded successfully!\n")

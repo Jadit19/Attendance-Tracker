@@ -6,6 +6,7 @@ const StudentItem = ({ studentData }) => {
     return (
         // creating a row in the table corresponding to each logged in student
         <tr> 
+            <td className="table__roll_number">{ studentData.name }</td>
             <td className="table__name">{ studentData.name }</td>
             <td className="table__hour">{ studentData.hour }</td>
             <td className="table__date">{ studentData.date }</td>
