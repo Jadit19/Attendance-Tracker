@@ -3,7 +3,10 @@
 ```bash
 cd client && npm i
 ```
-
+> CMake should be installed before installing face-recognition python library: 
+```bash
+sudo apt install cmake
+```
 ```bash
 cd server_flask && pip install -r "requirements.txt"
 ```
