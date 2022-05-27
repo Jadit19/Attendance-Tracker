@@ -53,3 +53,10 @@ td.table__date{
     width: 15%;
     overflow: hidden;
 }
+
+@media only screen and (max-width: 708px) {
+    /* For mobile phones: */
+    table {
+      width: auto;
+    }
+  }

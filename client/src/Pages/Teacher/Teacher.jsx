@@ -90,7 +90,8 @@ const Teacher = ({ user, setUser }) => {
                                     }
                                 </tbody>
                             </table>
-                        </div>
+                        </div><br/><br/>
+                        <p><center>Note: Click on a column header to sort the table entries according to the entries in that column</center></p>
                     </> :
                     <form onSubmit={handleSubmit} onReset={handleReset}>
                         <h1>Welcome Teacher! Enter the password</h1>
