@@ -3,7 +3,12 @@ import React from 'react'
 const Home = () => {
     return (
         <div className='main__container'>
-            <h1>As the name suggests, the main objective of my application is tracking attendance of students. Students can log in into the website using the webcam on their device. The name, roll number and time of login of the currently logged in students can be viewed by a teacher on the same website upon entering a password. Hence, using this application, the teacher can keep a record of the students currently attending a particular class.</h1>
+            <h1 id='AT'><center>Face Recognition - ATTENDANCE TRACKER</center></h1>
+            <br/><br/><br/>
+            <h2>Choose an option from the top right to start your journey!</h2><br/>
+            <h2><b>Student:</b> Login using your device Camera/Webcam</h2><br/>
+            <h2><b>Teacher:</b> Login using a password to access Attendance Records</h2><br/><br/><br/>
+            <h3>Note: If you are logging in as a student, you are required to give the camera access permission to the website.</h3>
         </div>
     )
 }
