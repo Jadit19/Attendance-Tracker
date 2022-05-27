@@ -1,58 +1,23 @@
-# Installing requirements
+# Attendance Tracker
 
-```bash
-cd client && npm i
-```
-> CMake should be installed before installing face-recognition python library: 
-```bash
-sudo apt install cmake
-```
-```bash
-cd server_flask && pip install -r "requirements.txt"
-```
+## Description
 
-```bash
-cd server_node && npm i
-```
+**Attendance Tracker** is an Application that automates attendance. Students can login using their camera either through laptop, tablet or mobile. Teachers can view the record of students who are currently logged in to the site along with their roll numbers, and respective date and time of logging in.
 
-# Setting up the workspace
+## How does it work?
 
-Create a `.env` file in 3 directories:
+* **For Students:** 
+ A student clicks a photo of herself at the frontend using the react-webcam library in ReactJS. The photo is encoded into a base64 string and this string is sent to the Flask Server. <br/>
+ The Flask server first decodes the base64 string back into an image and then this image is compared with the existing training images using the face-recognition library in python. <br/>
+ If a match is detected, the roll number, name, date and time of logging in is sent back to the frontend and the student is logged in.<br/> 
+ If the face in the captured photo doesn't match with any of the training images an alert is shown.
+ Similarly, if no face is detected or multiple faces are detected, an alert is shown.
 
-1. In `./client/src/.env`, write the following:
-```
-FLASK_PORT=5000
-NODE_PORT=8000
-```
+* **For Teachers:** A teacher enters a password. If the password is correct, the teacher is logged in. Once logged in, a teacher can see the Roll Number, Name, Time of logging in, and the Date of logging in of all the students who are currently logged in. The data of the currently logged in students is stored as a JSON file, which is then sent to the frontend from the NodeJS server once a teacher logs in.<br/>
+If the password entered is incorrect, an alert is shown.
 
-2. In `./server_flask/.env`, write the following:
-```
-FLASK_PORT=5000
-```
+## Technologies Used
 
-3. In `./server_node/.env`, write the following:
-```
-NODE_SERVER_PORT=8000
-PASSWORD=$2a$12$6hqeh0NwbceH3EwCWD7jgOlCBwuwgGM5fTlRqnkN.to/LIL9ZJs.O
-```
-> The above hash corresponds to "1234". You may replace it with a hash of your choice.
-
-# Running
-
-### Running NodeJS Server on port 8000
-
-```bash
-cd server_node && npm start
-```
-
-### Running Flask Server on port 5000
-
-```bash
-cd server_flask && python3 server.py
-```
-
-### Running ReactJS Frontend on port 3000
-
-```bash
-cd client && npm start
-```
+* **Front-end:** *ReactJS*
+* **Back-end:** *Flask* & *NodeJS*
+* **Face-Recognition Model:** *Python [Face_recognition](https://github.com/ageitgey/face_recognition) Library*  
