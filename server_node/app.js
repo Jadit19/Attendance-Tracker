@@ -1,4 +1,5 @@
 const express = require('express')
+const bcrypt = require('bcryptjs')
 const cors = require('cors')
 const fs = require('fs')
 
@@ -32,7 +33,8 @@ app.get('/', async (req, res) => {
 
 app.post('/password', async (req, res) => {
     const pswd = req.body.password
-    if (pswd === PASSWORD)
+    const comp = await bcrypt.compare(pswd, PASSWORD)
+    if (comp)
         res.json({
             status: 200,
             data: studentData

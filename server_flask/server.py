@@ -1,11 +1,14 @@
 # * ---------- IMPORTS --------- *
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import dotenv_values
 from src.image_comparer import ImageComparer
 from src.face_detector import FaceDetector
 
 image_comparer = ImageComparer()
 face_detector = FaceDetector()
+
+PORT = dotenv_values(".env")['FLASK_PORT']
 
 # * ---------- Create App --------- *
 app = Flask(__name__)
@@ -26,4 +29,4 @@ def post_img():
 
 # * ------- RUN SERVER on port 5000 ------- *
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=PORT, debug=True)

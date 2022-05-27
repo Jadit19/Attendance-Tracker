@@ -21,6 +21,7 @@ opencv-python
 Pillow
 proglog
 psycopg2
+python-dotenv
 requests
 six
 tqdm

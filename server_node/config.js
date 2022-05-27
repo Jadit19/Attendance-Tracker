@@ -2,7 +2,7 @@ const dotenv = require("dotenv")
 
 dotenv.config()
 
-const PORT = process.env.NODE_SERVER_PORT
-const PASSWORD = String(process.env.PASSWORD)
+const PORT = process.env.NODE_PORT || 8000
+const PASSWORD = process.env.PASSWORD
 
 module.exports = { PORT, PASSWORD }
